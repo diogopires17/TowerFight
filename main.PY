@@ -15,7 +15,8 @@ RED = (255, 0, 0 )
 YELLOW = (255, 255, 0 )
 FPS  = 60
 VEL = 5
-BULLET_VEL = 12
+BULLET_VEL = 8
+ 
 MAX_BULLETS = 5
 
 HEALTH_FONT = pygame.font.SysFont('comicsans', 40)
@@ -23,7 +24,7 @@ WINNERS_TEXT_FONT  = pygame.font.SysFont('comicsans', 100)
 
 
 
-SPACESHIP_WIDTH , SPACESHIP_HEIGTH = 55, 40
+SPACESHIP_WIDTH , SPACESHIP_HEIGTH = 40, 40
 BORDER = pygame.Rect(WIDTH/2 - 5, 0, 10, HEIGHT)
 
 YELLOW_HIT = pygame.USEREVENT + 1
@@ -43,7 +44,7 @@ def draw(red, yellow, yellow_bullets, red_bullets, YELLOW_HEALTH, RED_HEALTH):
     
     WIN.blit(RED_HEALTH_TEXT,  (WIDTH - RED_HEALTH_TEXT.get_width()-10, 10 ))   
     WIN.blit(YELLOW_HEALTH_TEXT, (10, 10 ))
-    pygame.draw.rect(WIN, BLACK, BORDER)
+    pygame.draw.rect(WIN, WHITE, BORDER)
     WIN.blit(YELLOW_SPACESHIP, (yellow.x, yellow.y))
     WIN.blit(RED_SPACESHIP, (red.x, red.y))
     
@@ -100,7 +101,7 @@ def draw_winner(text):
     WIN.blit(draw_text, (WIDTH/2 - draw_text.get_width() /
                          2, HEIGHT/2 - draw_text.get_height()/2))
     pygame.display.update()
-    pygame.time.delay(5000)
+    pygame.time.delay(2000)
 
 def main():
     
@@ -122,11 +123,11 @@ def main():
                 pygame.quit()
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LCTRL and len(yellow_Bullets) < 3:
+                if event.key == pygame.K_LCTRL and len(yellow_Bullets) < MAX_BULLETS:
                     bullet = pygame.Rect(yellow.x + yellow.width, yellow.y + yellow.height//2 -2,10,5)  
                     yellow_Bullets.append(bullet)
 
-                if event.key == pygame.K_RCTRL and len(red_Bullets) < 3:
+                if event.key == pygame.K_RCTRL and len(red_Bullets) < MAX_BULLETS:
                     bullet = pygame.Rect(red.x, red.y + red.height//2 -2,10,5 )
                     red_Bullets.append(bullet)
             if event.type == RED_HIT:
